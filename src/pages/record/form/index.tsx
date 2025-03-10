@@ -325,12 +325,31 @@ const FormRecord = ({
   const errorsSummary = Object.values(errors).join(" | ");
   const disabledSave = !(canSave && enableSave);
 
-  console.info({ values });
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Evita el submit del formulario
+
+      const form = event.currentTarget.form;
+      if (!form) return;
+
+      const index = Array.from(form.elements).indexOf(event.currentTarget);
+      const nextElement = form.elements[index + 1] as HTMLElement;
+
+      if (nextElement && "focus" in nextElement) {
+        nextElement.focus();
+      }
+    }
+  };
 
   return (
     <Container maxWidth="xl">
       <FormikProvider value={formik}>
-        <Form noValidate autoComplete="off" onSubmit={handleSubmit}>
+        <Form
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+          onKeyDown={(e) => handleKeyDown(e)}
+        >
           <HeaderBreadcrumbs
             heading={isEdit ? "Editar Acta" : "Registrar Nueva Acta"}
             links={[
