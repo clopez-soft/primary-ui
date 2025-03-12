@@ -121,7 +121,7 @@ const CongressResult = () => {
 
     if (sortElectos2.length >= 9) {
       newElectos2 = sortElectos2.slice(0, 9);
-      newMarcas = sortElectos2.slice(8);
+      newMarcas = sortElectos2.slice(9);
     }
 
     // const newElectos: CandidateCongress[] = [];
@@ -247,7 +247,7 @@ const CongressResult = () => {
                           />
                         </ListItemAvatar>
                         <ListItemText
-                          primary={`Casilla - ${item.number_box}`}
+                          primary={`${item.number_box} - ${item.candidate_name}`}
                           secondary={`Marcas: ${fMiles(item.marks)}`}
                         />
                       </ListItem>
